@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+      .product-img{
+        width: 50px;
+      }
+     
+    </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="container p-5">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 50%;">Product Info</th>
+            <th scope="col" style="width: 10%;">Quantity</th>
+            <th scope="col" style="width: 10%;">Price(per unit)</th>
+            <th scope="col" style="width: 10%;">price(sub total)</th>
+            <th scope="col" style="width: 20%;"><button class="btn btn-primary" onclick="BtnAdd()">+</button></th>
+          </tr>
+        </thead>
+        <tbody id="TBody">
+          <tr id="TRow" class="d-none">
+            <td scope="row">
+              <img src="img.png" alt="" class="product-img">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus!</p>
+            </td>
+            <td><input type="number" name="qty" id="quantity" onkeyup="Calc(this)"></td>
+            <td><input type="number" name="rate" id="quantity" onkeyup="Calc(this)"></td>
+            <td><input type="number" name="amt" ></td>
+            <td><button class="btn btn-danger text-white" onclick="BtnDel(this)" >REMOVE</button></td>
+          </tr>
+          
+          
+          </tbody>
+          <tfoot>
+          <tr>
+            
+            <td class="text-end" colspan="3">Total</td>
+            <td>
+              <p id="ftotal"></p>
+            </td>
+            <td></td>
+          </tr>
+        </tfoot>
+    </table>
+    </div>
+   
+  </div>
+  <script>
+
+      function BtnAdd(){
+        const v = document.getElementById("TRow").cloneNode(true);
+        v.classList.remove("d-none");
+        v.getElementsByTagName("input").value = "";
+        document.getElementById("TBody").appendChild(v);
+      }
+      function BtnDel(v) {
+          v.parentNode.parentNode.remove();
+          GetTotal();
+      }
+      function Calc(v){
+     
+          var row = v.closest("tr");
+          var qty = row.querySelector("input[name='qty']").value;
+          var rate = row.querySelector("input[name='rate']").value;
+          var amt = qty * rate; 
+          row.querySelector("input[name='amt']").value = amt;
+
+          GetTotal();
+      }
+  
+          function GetTotal(){
+          let sum=0
+          console.log(sum)
+          var amts = document.getElementsByName("amt");
+          for(let i = 0; i < amts.length; i++){
+            var amt = amts[i].value;
+            console.log(amt)
+            sum = +(sum)  +  +(amt);
+          }
+
+          document.getElementById("ftotal").innerHTML = sum;
+
+          }
+      
+
+
+
+    </script>
+</body>
+</html>
